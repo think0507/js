@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <title>Document</title>
+</head>
+<body>
+    <input type ="email" id="account" value="abcdef@tt.cc">
+
+   <script>
+       const $input = document.querySelector("input");
+       console.log($input);
+       console.log($input.attributes);
+
+       $input.attributes.type.value='password';
+       $input.attributes.id.value='acc';
+       $input.attributes.value.value='think0507@naver.com';
+
+       //JS에서의 DOM객체가 제공하는 데이터 참조 편의성
+       //map자료형 처럼 key가 되는 string으로 조회 가능
+       //  => NamedNodeMap
+       // 배열 자료형 처럼 인덱스로도 조회가 가능
+       // => 유사 배열
+       console.log($input.attributes[0]);
+       console.log($input.attributes[1]);
+       console.log($input.attributes[2]);
+
+   </script>
+</body>
+</html>
