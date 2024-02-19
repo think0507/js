@@ -26,6 +26,38 @@
        console.log($input.attributes[1]);
        console.log($input.attributes[2]);
 
+       //변수 선언 여러개 한줄에 가능
+       let input, type, id, value;
+       type={
+           name:'type',
+           value:'email'
+       }
+       id = {
+           name:'id',
+           value:'acc2'
+       }
+       value = {
+           name : 'value',
+           value : 'tester001@tt.cc'
+       }
+       const attributes = {
+           //이름으로 참조 하는 부분 (NamedNodeMap 데이터)
+           type : type,    //키는 문자열 '' 가 생략되는것이 기본
+           id : id,
+           value: value,
+
+           //인덱스로 참조하는 부분 (배여러럼 다룰 수 있는 "유사배열")
+           0: type,
+           1: id,
+           2: value,
+           length:3
+       }
+
+       input = {
+            tagName:'INPUT',
+           attributes: attributes
+       }
+
    </script>
 </body>
 </html>
