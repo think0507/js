@@ -1,31 +1,37 @@
+
+
 // 1. 캐릭터 요소 선택 및 확인
 const $userCharacter = document.getElementById('user-character');
 const imgDir = '../img_zeldarink/'
-const postureTypes = ['back', 'front' , 'left' , 'right']
+const postureTypes = ['back', 'front', 'left', 'right']
 
+//// *1 맵 요소 선택
+const $townMap = document.getElementsByClassName('town-map')[0];
 
-document.addEventListener(`DOMContentLoaded` ,() => {
+document.addEventListener(`DOMContentLoaded`, () => {
     // 1-2. 캐릭터 이미지 사전로드
-    for(let direction of postureTypes){
+    for (let direction of postureTypes) {
         let characterImgs =
-            Array.from({length:10}, (_,idx) => {
-                return`${imgDir}${direction}_walk${idx}.png`
+            Array.from({length: 10}, (_, idx) => {
+                return `${imgDir}${direction}_walk${idx}.png`
             })
-        characterImgs.forEach(imgPath => { $userCharacter.setAttribute('style', `background-image: url("${imgPath}")`);});
+        characterImgs.forEach(imgPath => {
+            $userCharacter.setAttribute('style', `background-image: url('${imgPath}')`);
+        });
     }
     // 1-3. 캐릭터 이미지 최초 포지션 세팅
-    $userCharacter.setAttribute('style', 'background-image: url("../img_zeldarink/front_stand.png")');
+    $userCharacter.setAttribute('style', `background-image: url("../img_zeldarink/front_stand.png")`);
 })
 
 
 // 2. 캐릭터 이동을 위한 주요 변수 및 메서드 선언
-const characterLocation = {
-    x: 0, y:0
+const townMapLocation = {
+    x: 0, y: 0
 }
 
 const stepSize = 20;
 
-const allowedKeys = [ 'ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight' ]
+const allowedKeys = ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight']
 
 const animationKeyMap = {
     ArrowDown: 'forward',
@@ -34,26 +40,33 @@ const animationKeyMap = {
     ArrowRight: 'right'
 }
 
+
 function characterMove() {
-    $userCharacter.setAttribute('style', `transform: translate(${characterLocation.x}px, ${characterLocation.y}px)`);
+    $townMap.setAttribute('style', `background-position: ${townMapLocation.x}px ${townMapLocation.y}px`);
+    console.log(townMapLocation.x, townMapLocation.y)
 }
+
 // Function Map 사용의 메리트 : 각각의 키에 대한 동작이 복잡해져도, 서로 영향을 주지 않게끔, 분리되는 효과 => 코드가 간결해지고 유지보수성이 상승
-const animationFunctionMap = {
+// ------------------------ 무빙구현 -------------------------
+const townMapFunctionMap = {
     ArrowDown: function () {
-        characterLocation.y += stepSize; characterMove()
+        townMapLocation.y -= stepSize;
+        characterMove()
     },
     ArrowUp: function () {
-        if(characterLocation.y <= 0){ return; }
-        characterLocation.y -= stepSize; characterMove()
+        townMapLocation.y += stepSize;
+        characterMove()
     },
     ArrowLeft: function () {
-        if(characterLocation.x <= 0){ return; }
-        characterLocation.x -= stepSize; characterMove()
+        townMapLocation.x += stepSize;
+        characterMove()
     },
     ArrowRight: function () {
-        characterLocation.x += stepSize; characterMove()
-    },
+        townMapLocation.x -= stepSize;
+        characterMove()
+    }
 }
+// -------------------------여기까지 -------------------------
 
 document.addEventListener('keydown', (evt) => {
     // 3-1. 이벤트 키 검사
@@ -70,7 +83,7 @@ document.addEventListener('keydown', (evt) => {
 
 
     // (2) Function Mapping
-    animationFunctionMap[evt.key]();
+    townMapFunctionMap[evt.key]();
 });
 
 document.addEventListener('keyup', (evt) => {
