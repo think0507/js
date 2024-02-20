@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>JS객체에 프로퍼티로 이벤트 핸들러 할당</title>
 </head>
 <body>
+    <div>
+        <button id="btn1">이벤트1</button>
+        <button id="btn2">이벤트2</button>
+        <button id="btn3">이벤트3</button>
+    </div>
+
+    <script>
+        const welcomeHandler = () => {
+            alert('Welcome to JS Handler!!')
+        }
+
+        const $btn1 = document.querySelector('#btn1');
+        $btn1.onclick = welcomeHandler;
+    </script>
 
 </body>
 </html>
